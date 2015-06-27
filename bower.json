@@ -2,7 +2,8 @@
   "name": "package",
   "version": "0.0.1",
   "dependencies": {
-    "d3": "~3.4.6"
+    "d3": "~3.5.5",
+    "rxjs": "~2.5.2",
+    "rx-dom": "~6.0.0"
   }
 }
-

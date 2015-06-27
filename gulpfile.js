@@ -45,6 +45,19 @@ var notifyLivereload = function (event, lr) {
   });
 };
 
+/* sample from youtube: typescript and gulp basics */
+/* requires vinyl-source-stream and viny-buffer plugins and using require and external modules */
+/*
+gulp.task("typescriptIt", function() {
+  browserify(".src/App.ts")
+    .plugin(tsify)
+    .bundle()
+    .pipe(source("App.js"))
+    .pipe(buffer())
+    .pipe(gulp.dest("./build"));
+});
+*/
+
 // `gulp.task()` defines task that can be run calling `gulp xyz` from the command line
 // The `default` task gets called when no task name is provided to Gulp
 gulp.task('default', function () {
