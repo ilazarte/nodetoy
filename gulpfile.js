@@ -1,9 +1,12 @@
+'use strict';
+
 // http://thibaudb.com/starting-with-gulp-coffeescript/
 
 var gulp = require('gulp'),
   path = require('path'),
   gutil = require('gulp-util'),
   ts = require('gulp-typescript'),
+  babel = require('gulp-babel'),
   coffee = require('gulp-coffee'),
   EXPRESS_ROOT = path.join(__dirname, 'app');
 
@@ -18,7 +21,7 @@ var startExpress = function () {
 var compileCoffee = function () {
   gulp.src('./app/coffee/*.coffee')
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulp.dest('./app/compiled/coffee/'))
+    .pipe(gulp.dest('./app/compiled/coffee/'));
 };
 
 var compileTypescript = function () {
@@ -29,6 +32,13 @@ var compileTypescript = function () {
     }));
   return tsResult.js.pipe(gulp.dest('./app/compiled/ts/'));
 };
+
+function compileBabel() {
+  return gulp.src('./app/babel/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('./app/compiled/babel'));
+}
+
 
 var startLiveReload = function () {
   var lr = require('tiny-lr')();
@@ -65,9 +75,19 @@ gulp.task('default', function () {
   startExpress();
   var lr = startLiveReload();
 
-  gulp.watch(['app/coffee/**', 'app/js/**', 'app/ts/**'], function (event) {
+  gulp.watch(['app/coffee/**'], function () {
     compileCoffee();
+  });
+
+  gulp.watch(['app/ts/**'], function () {
     compileTypescript();
+  });
+
+  gulp.watch(['app/babel/**'], function (event) {
+    compileBabel();
+  });
+
+  gulp.watch(['app/compiled/**'], function (event) {
     notifyLivereload(event, lr);
   });
 
