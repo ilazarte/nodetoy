@@ -21,6 +21,8 @@
     "document",
     "Rx",
     "d3",
-    "R"
+    "R",
+    "PIXI",
+    "paper"
   ]
 }
